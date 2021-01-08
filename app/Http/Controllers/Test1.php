@@ -8,6 +8,6 @@ class Test1 extends BaseController
 {
     function index()
     {
-        event(new MyEvent('hello world'));
+        event(new MyEvent(mt_rand(0, 100)));
     }
 }
