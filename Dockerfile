@@ -6,6 +6,6 @@ FROM php:8.0-apache
 WORKDIR /var/www/html
 
 COPY php.ini /etc/php/8.0/php.ini
-COPY apache2.conf 9ed7c8ef0af8:/etc/apache2/apache2.conf
+COPY apache2.conf /etc/apache2/apache2.conf
 
 RUN a2enmod rewrite
