@@ -44,7 +44,7 @@ class Game
             this.height
         );
 
-        //this.pusherConnect();
+        this.pusherConnect();
 
         Game.menu = new FireMenu();
 
@@ -126,11 +126,10 @@ class Game
         const channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
 
-            const spanHpPlayer = document.getElementById("hpPlayer");
-            const spanHpEnemy = document.getElementById("hpEnemy");
-
-            spanHpPlayer.innerText = data.message.hpPlayer;
-            spanHpEnemy.innerText = data.message.hpEnemy;
+            const msg = document.getElementById("msg");
+            if (data.message.msg){
+                msg.innerText = data.message.msg;
+            }
 
             /*// Отрисовка заднего фона
             Game.context.fillStyle = '#FFFFFF';

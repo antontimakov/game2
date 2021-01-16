@@ -39,10 +39,9 @@ class Test1 extends BaseController
         if ($oldPlayerState -> hit_points - 5 <= 0){
 
             $res = [
-                'hpPlayer' => 0,
-                'hpEnemy' => $oldBattleState -> hit_points - $dmg
+                'msg' => 'Вы проиграли. Нужно подолжать 30 секунд!'
             ];
-            //event(new MyEvent($res));
+            event(new MyEvent($res));
 
             sleep(30);
 
@@ -52,10 +51,9 @@ class Test1 extends BaseController
             DB::table('main.player')
                 -> update(['hit_points' => 100]);
             $res = [
-                'hpPlayer' => 100,
-                'hpEnemy' => $oldBattleState -> hit_points - $dmg
+                'msg' => 'Можно продолжать игру!'
             ];
-            //event(new MyEvent($res));
+            event(new MyEvent($res));
 
         }
         else{
@@ -66,7 +64,6 @@ class Test1 extends BaseController
                 'goldPlayer' => $oldPlayerState -> gold
             ];
             return $res;
-            //event(new MyEvent($res));
         }
     }
 }
