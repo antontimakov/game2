@@ -13,7 +13,7 @@ class CreateFireTable extends Migration
      */
     public function up()
     {
-        Schema::create('fire', function (Blueprint $table) {
+        Schema::create('main.fire', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->integer('number_fires')->default(0)->comment('Кол-во выстрелов');
@@ -28,6 +28,6 @@ class CreateFireTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fire');
+        Schema::dropIfExists('main.fire');
     }
 }
