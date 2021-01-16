@@ -11,9 +11,9 @@ class Test1 extends BaseController
     {
         $resBattle = DB::table('main.battle')
             -> where('player_id', '=', 1);
+        $resEnemy = DB::table('main.enemy')
+            -> first();
         if ($resBattle -> count() === 0){
-            $resEnemy = DB::table('main.enemy')
-                -> first();
             DB::table('main.battle')->insert([
                 'player_id' => 1,
                 'hit_points' => $resEnemy -> hit_points,
@@ -57,13 +57,42 @@ class Test1 extends BaseController
 
         }
         else{
-            $res = [
-                'hpPlayer' => $oldPlayerState -> hit_points - 5,
-                'hpEnemy' => $oldBattleState -> hit_points - $dmg,
-                'expPlayer' => $oldPlayerState -> experience,
-                'goldPlayer' => $oldPlayerState -> gold
-            ];
-            return $res;
+            // Игрок выиграл
+            if ($oldBattleState -> hit_points - $dmg <= 0){
+                $res = [
+                    'msg' => 'Вы Выиграли!'
+                ];
+
+                DB::table('main.battle')
+                    ->where('player_id', '=', 1)
+                    ->delete();
+                DB::table('main.player')
+                    -> update([
+                        'hit_points' => 100,
+                        'experience' => $oldPlayerState -> experience + $resEnemy -> experience,
+                        'gold' => $oldPlayerState -> gold + $resEnemy -> gold
+                    ]);
+
+                event(new MyEvent($res));
+                $res = [
+                    'damage' => $dmg,
+                    'hpPlayer' => 100,
+                    'hpEnemy' => $resEnemy -> experience,
+                    'expPlayer' => $oldPlayerState -> experience + $resEnemy -> experience,
+                    'goldPlayer' => $oldPlayerState -> gold + $resEnemy -> gold
+                ];
+                return $res;
+            }
+            else{
+                $res = [
+                    'damage' => $dmg,
+                    'hpPlayer' => $oldPlayerState -> hit_points - 5,
+                    'hpEnemy' => $oldBattleState -> hit_points - $dmg,
+                    'expPlayer' => $oldPlayerState -> experience,
+                    'goldPlayer' => $oldPlayerState -> gold
+                ];
+                return $res;
+            }
         }
     }
 }

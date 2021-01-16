@@ -78,11 +78,13 @@ class FireMenu {
                 if (response.data){
                     const resp = response.data;
 
+                    const damage = document.getElementById("damage");
                     const spanHpPlayer = document.getElementById("hpPlayer");
                     const spanHpEnemy = document.getElementById("hpEnemy");
                     const spanExpPlayer = document.getElementById("expPlayer");
                     const spanGoldPlayer = document.getElementById("goldPlayer");
 
+                    damage.innerText = resp.damage;
                     spanHpPlayer.innerText = resp.hpPlayer;
                     spanHpEnemy.innerText = resp.hpEnemy;
                     spanExpPlayer.innerText = resp.expPlayer;
