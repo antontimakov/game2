@@ -108,10 +108,20 @@ class Game
         // Если анимация закончена
         if (Game.ball && Game.ball.animate() === true){
             Game.ball = null;
-            window.axios.get('http://localhost/')
+            window.axios.get('http://192.168.1.103/')
                 .then(response => {
-                    console.log(5);
-                    if (response.data['data']){
+                    if (response.data){
+                        const resp = response.data;
+
+                        const spanHpPlayer = document.getElementById("hpPlayer");
+                        const spanHpEnemy = document.getElementById("hpEnemy");
+                        const spanExpPlayer = document.getElementById("expPlayer");
+                        const spanGoldPlayer = document.getElementById("goldPlayer");
+
+                        spanHpPlayer.innerText = resp.hpPlayer;
+                        spanHpEnemy.innerText = resp.hpEnemy;
+                        spanExpPlayer.innerText = resp.expPlayer;
+                        spanGoldPlayer.innerText = resp.goldPlayer;
                     }
                 });
         }
