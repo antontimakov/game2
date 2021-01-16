@@ -16,7 +16,7 @@ class PlayerSeeder extends Seeder
     {
         DB::table('main.player')->insert([
             'name' => '1',
-            'hit_points' => 0,
+            'hit_points' => 100,
             'mana_points' => 0,
             'experience' => 0,
             'gold' => 0
