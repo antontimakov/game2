@@ -35,12 +35,38 @@ class Test1 extends BaseController
         DB::table('main.player')
             -> update(['hit_points' => $oldPlayerState -> hit_points - 5]);
 
-        $res = [
-            'hpPlayer' => $oldPlayerState -> hit_points - 5,
-            'hpEnemy' => $oldBattleState -> hit_points - $dmg
-        ];
+        // Игрок проиграл
+        if ($oldPlayerState -> hit_points - 5 <= 0){
 
-        event(new MyEvent($res));
-        print_r($res);
+            $res = [
+                'hpPlayer' => 0,
+                'hpEnemy' => $oldBattleState -> hit_points - $dmg
+            ];
+            //event(new MyEvent($res));
+
+            sleep(30);
+
+            DB::table('main.battle')
+                ->where('player_id', '=', 1)
+                ->delete();
+            DB::table('main.player')
+                -> update(['hit_points' => 100]);
+            $res = [
+                'hpPlayer' => 100,
+                'hpEnemy' => $oldBattleState -> hit_points - $dmg
+            ];
+            //event(new MyEvent($res));
+
+        }
+        else{
+            $res = [
+                'hpPlayer' => $oldPlayerState -> hit_points - 5,
+                'hpEnemy' => $oldBattleState -> hit_points - $dmg,
+                'expPlayer' => $oldPlayerState -> experience,
+                'goldPlayer' => $oldPlayerState -> gold
+            ];
+            return $res;
+            //event(new MyEvent($res));
+        }
     }
 }
