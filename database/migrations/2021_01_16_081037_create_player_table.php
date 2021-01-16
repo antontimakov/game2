@@ -20,6 +20,7 @@ class CreatePlayerTable extends Migration
             $table->integer('mana_points')->default(0)->comment('Кол-во очков маны');
             $table->integer('experience')->default(0)->comment('Кол-во опыта');
             $table->integer('gold')->default(0)->comment('Кол-во золота');
+            $table->dateTimeTz('resurrection_time')->nullable()->comment('Время до воскрешения');
             $table->timestamps();
         });
     }

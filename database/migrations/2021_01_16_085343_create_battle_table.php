@@ -34,6 +34,9 @@ class CreateBattleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('battle');
+        Schema::table('main.battle', function (Blueprint $table) {
+            $table->dropForeign(['player_id']); // Удаление индекса 'geo_state_index'
+        });
+        Schema::dropIfExists('main.battle');
     }
 }
