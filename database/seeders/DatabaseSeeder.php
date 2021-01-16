@@ -14,5 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+
+        $this->call(FireSeeder::class);
+        $this->call(PlayerSeeder::class);
+        $this->call(EnemySeeder::class);
     }
 }

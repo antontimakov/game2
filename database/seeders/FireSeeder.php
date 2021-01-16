@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class FireSeeder extends Seeder
 {
@@ -13,6 +14,6 @@ class FireSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('fire')->insert(['number_fires'=>0]);
+        DB::table('main.fire')->insert(['number_fires'=>0]);
     }
 }
