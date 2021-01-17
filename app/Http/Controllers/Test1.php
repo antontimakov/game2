@@ -9,6 +9,20 @@ class Test1 extends BaseController
 {
     function index()
     {
+        $oldPlayerState = DB::table('main.player')
+            -> select(
+                    'name',
+                    'hit_points',
+                    'mana_points',
+                    'experience',
+                    'gold',
+                    DB::raw('resurrection_time - NOW() AS res')
+                )
+            -> where('id', '=', 1)
+            -> first();
+        if($oldPlayerState->res > 0){ // ещё не воскресился
+            return;
+        }
         $resBattle = DB::table('main.battle')
             -> where('player_id', '=', 1);
         $resEnemy = DB::table('main.enemy')
@@ -29,9 +43,6 @@ class Test1 extends BaseController
             -> update(['hit_points' => $oldBattleState -> hit_points - $dmg]);
 
         // Урон игроку
-        $oldPlayerState = DB::table('main.player')
-            -> where('id', '=', 1)
-            -> first();
         DB::table('main.player')
             -> update(['hit_points' => $oldPlayerState -> hit_points - 5]);
 
@@ -41,6 +52,9 @@ class Test1 extends BaseController
             $res = [
                 'msg' => 'Вы проиграли. Нужно подолжать 30 секунд!'
             ];
+            DB::table('main.player')
+                -> where('id', '=', 1)
+                -> update(['resurrection_time' => DB::raw("NOW()  + interval '30 second'")]);
             event(new MyEvent($res));
 
             sleep(30);
@@ -49,7 +63,9 @@ class Test1 extends BaseController
                 ->where('player_id', '=', 1)
                 ->delete();
             DB::table('main.player')
-                -> update(['hit_points' => 100]);
+                -> update([
+                    'hit_points' => 100
+                ]);
             $res = [
                 'msg' => 'Можно продолжать игру!'
             ];
