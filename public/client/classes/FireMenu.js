@@ -71,26 +71,4 @@ class FireMenu {
 
         }
     }
-
-    goToSrv(){
-        window.axios.get('http://192.168.1.103/')
-            .then(response => {
-                if (response.data){
-                    const resp = response.data;
-
-                    const damage = document.getElementById("damage");
-                    const spanHpPlayer = document.getElementById("hpPlayer");
-                    const spanHpEnemy = document.getElementById("hpEnemy");
-                    const spanExpPlayer = document.getElementById("expPlayer");
-                    const spanGoldPlayer = document.getElementById("goldPlayer");
-
-                    damage.innerText = resp.damage;
-                    spanHpPlayer.innerText = resp.hpPlayer;
-                    spanHpEnemy.innerText = resp.hpEnemy;
-                    spanExpPlayer.innerText = resp.expPlayer;
-                    spanGoldPlayer.innerText = resp.goldPlayer;
-                }
-            })
-            .catch(ee=>{console.log(ee);});
-    }
 }

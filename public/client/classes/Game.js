@@ -60,6 +60,8 @@ class Game
         Game.context.textAlign = 'left';
         Game.context.textBaseline = 'top';
         Game.context.fillStyle = 'black';
+
+        Game.goToSrv();
     }
 
     static over(poE){
@@ -147,5 +149,27 @@ class Game
                 Game.height - 20
             );*/
         });
+    }
+
+    static goToSrv(path = ''){
+        window.axios.get('http://192.168.1.103/' + path)
+            .then(response => {
+                if (response.data){
+                    const resp = response.data;
+
+                    const damage = document.getElementById("damage");
+                    const spanHpPlayer = document.getElementById("hpPlayer");
+                    const spanHpEnemy = document.getElementById("hpEnemy");
+                    const spanExpPlayer = document.getElementById("expPlayer");
+                    const spanGoldPlayer = document.getElementById("goldPlayer");
+
+                    damage.innerText = resp.damage;
+                    spanHpPlayer.innerText = resp.hpPlayer;
+                    spanHpEnemy.innerText = resp.hpEnemy;
+                    spanExpPlayer.innerText = resp.expPlayer;
+                    spanGoldPlayer.innerText = resp.goldPlayer;
+                }
+            })
+            .catch(ee=>{console.log(ee);});
     }
 }

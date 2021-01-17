@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Test1;
+use App\Http\Controllers\Main;
+use App\Http\Controllers\Battle;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,5 @@ use App\Http\Controllers\Test1;
 //    echo 1;
 //});
 
-Route::get('/', [Test1::class, 'index']);
+Route::get('/', [Main::class, 'index']);
+Route::get('battle', [Battle::class, 'index']);

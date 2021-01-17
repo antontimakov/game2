@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 
-class Test1 extends BaseController
+class Battle extends BaseController
 {
     function index()
     {
