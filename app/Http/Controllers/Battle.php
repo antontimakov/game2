@@ -44,11 +44,10 @@ class Battle extends BaseController
 
         // Урон игроку
         DB::table('main.player')
-            -> update(['hit_points' => $oldPlayerState -> hit_points - 5]);
+            -> update(['hit_points' => $oldPlayerState -> hit_points - 50]);
 
         // Игрок проиграл
-        if ($oldPlayerState -> hit_points - 5 <= 0){
-
+        if ($oldPlayerState -> hit_points - 50 <= 0){
             $res = [
                 'msg' => 'Вы проиграли. Нужно подолжать 30 секунд!'
             ];
@@ -64,7 +63,7 @@ class Battle extends BaseController
                 ->delete();
             DB::table('main.player')
                 -> update([
-                    'hit_points' => 100
+                    'hit_points' => 1000
                 ]);
             $res = [
                 'msg' => 'Можно продолжать игру!'
@@ -84,7 +83,7 @@ class Battle extends BaseController
                     ->delete();
                 DB::table('main.player')
                     -> update([
-                        'hit_points' => 100,
+                        'hit_points' => 1000,
                         'experience' => $oldPlayerState -> experience + $resEnemy -> experience,
                         'gold' => $oldPlayerState -> gold + $resEnemy -> gold
                     ]);
@@ -92,7 +91,7 @@ class Battle extends BaseController
                 event(new MyEvent($res));
                 $res = [
                     'damage' => $dmg,
-                    'hpPlayer' => 100,
+                    'hpPlayer' => 1000,
                     'hpEnemy' => $resEnemy -> experience,
                     'expPlayer' => $oldPlayerState -> experience + $resEnemy -> experience,
                     'goldPlayer' => $oldPlayerState -> gold + $resEnemy -> gold
@@ -102,7 +101,7 @@ class Battle extends BaseController
             else{
                 $res = [
                     'damage' => $dmg,
-                    'hpPlayer' => $oldPlayerState -> hit_points - 5,
+                    'hpPlayer' => $oldPlayerState -> hit_points - 50,
                     'hpEnemy' => $oldBattleState -> hit_points - $dmg,
                     'expPlayer' => $oldPlayerState -> experience,
                     'goldPlayer' => $oldPlayerState -> gold

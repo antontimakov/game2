@@ -16,7 +16,7 @@ class EnemySeeder extends Seeder
     {
         DB::table('main.enemy')->insert([
             'name' => 'enemy 1',
-            'hit_points' => 20000,
+            'hit_points' => 1000,
             'mana_points' => 0,
             'experience' => 100,
             'gold' => 100

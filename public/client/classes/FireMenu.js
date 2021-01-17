@@ -35,14 +35,12 @@ class FireMenu {
                 color: '#FF8000',
                 click: ()=>{
                     Game.ball = new Fb1(250, 400);
-                    me.goToSrv();
                 }
             },
             {
                 color: '#FF6000',
                 click: ()=>{
                     Game.ball = new Fb2(250, 400);
-                    me.goToSrv();
                 }
             }
         ];

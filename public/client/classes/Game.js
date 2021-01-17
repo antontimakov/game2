@@ -110,6 +110,7 @@ class Game
         // Если анимация закончена
         if (Game.ball && Game.ball.animate() === true){
             Game.ball = null;
+            Game.goToSrv('battle')
         }
     }
 

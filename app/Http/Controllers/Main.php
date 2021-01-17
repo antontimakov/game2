@@ -12,10 +12,13 @@ class Main extends BaseController
         $oldPlayerState = DB::table('main.player')
             -> where('id', '=', 1)
             -> first();
+        $resBattle = DB::table('main.battle')
+            -> where('player_id', '=', 1)
+            -> first();
         $res = [
             'damage' => 0,
             'hpPlayer' => $oldPlayerState -> hit_points,
-            'hpEnemy' => 0,
+            'hpEnemy' => $resBattle -> hit_points ?? 0,
             'expPlayer' => $oldPlayerState -> experience,
             'goldPlayer' => $oldPlayerState -> gold
         ];
