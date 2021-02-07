@@ -61,7 +61,7 @@ class Game
         Game.context.textBaseline = 'top';
         Game.context.fillStyle = 'black';
 
-        Game.goToSrv();
+        //Game.goToSrv();
     }
 
     static over(poE){
