@@ -9,7 +9,12 @@ angular.
       function MainController($scope) {
           Game.init();
           $scope.fire = function (num) {
-              Game.ball = new Fb1(250, 400);
+              if (num === 1) {
+                  Game.ball = new Fb1(250, 400);
+              }
+              if (num === 2) {
+                  Game.ball = new Fb2(250, 400);
+              }
           };
       }
     ]
