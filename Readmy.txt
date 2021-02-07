@@ -1,0 +1,2 @@
+Для установки нужно:
+1) npm install bower -g
