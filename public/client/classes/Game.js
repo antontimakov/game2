@@ -45,13 +45,12 @@ class Game
         );
 
         this.pusherConnect();
+        //Game.menu = new FireMenu();
 
-        Game.menu = new FireMenu();
 
-
-        this.canvas.onmousemove = function (poE){
+        /*this.canvas.onmousemove = function (poE){
             Game.over(poE)
-        };
+        };*/
 
         setInterval(this.renderFrame, this.timeout);
 
