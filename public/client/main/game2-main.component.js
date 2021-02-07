@@ -5,9 +5,10 @@ angular.
   module('game2Main').
   component('game2Main', {
     templateUrl: 'main/game2-main.template.html',
-    controller: ['$scope',
-      function MainController($scope) {
+    controller: ['$scope', '$http',
+      function MainController($scope, $http) {
           Game.init();
+          Game.http = $http;
           $scope.fire = function (num) {
               if (num === 1) {
                   Game.ball = new Fb1(250, 400);

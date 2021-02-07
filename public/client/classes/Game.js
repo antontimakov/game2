@@ -45,6 +45,8 @@ class Game
         );
 
         this.pusherConnect();
+
+        this.http = window.axios;
         //Game.menu = new FireMenu();
 
 
@@ -152,7 +154,7 @@ class Game
     }
 
     static goToSrv(path = ''){
-        window.axios.get('http://192.168.1.103/' + path)
+        Game.http.get('../' + path)
             .then(response => {
                 if (response.data){
                     const resp = response.data;
